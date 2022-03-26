@@ -20,12 +20,17 @@ class Add extends React.Component {
       name: this.state.addWord,
       definition: this.state.addDef
     }
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/words/add',
-      data: { newWord: newWord }
+
+    axios.post('words/add', {
+      newWord: newWord
+    })
+    .then((response) => {
+    })
+    .catch((error) => {
+      console.log(error)
     })
     this.setState({addWord: '', addDef: ''})
+    this.props.loadWords()
   }
 
   handleAddWordChange(event) {

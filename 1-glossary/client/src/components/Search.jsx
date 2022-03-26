@@ -19,7 +19,6 @@ class Search extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(`this was searched -- ${this.state.searchTxt}`)
     this.props.liftSearch(this.state.searchTxt);
     this.setState({searchTxt: ''})
   }

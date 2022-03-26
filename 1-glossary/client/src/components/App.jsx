@@ -11,15 +11,18 @@ class App extends React.Component {
       glossary: [],
     }
 
-    this.liftSearch = this.liftSearch.bind(this);
+    this.liftSearch = this.liftSearch.bind(this)
+    this.loadWords = this.loadWords.bind(this)
+  }
+
+  loadWords() {
+    axios('http://localhost:3000/words/all').then((response) => {
+      this.setState({glossary: response.data});
+    })
   }
 
   componentDidMount() {
-    console.log('mounted')
-    axios('http://localhost:3000/words/all').then((response) => {
-      this.setState({glossary: response.data});
-      console.log(this.state.glossary)
-    })
+    this.loadWords()
   }
 
   liftSearch(searchTxt) {
@@ -30,25 +33,14 @@ class App extends React.Component {
     .catch(() => {
       console.log('error sending search get request')
     })
-
-    // axios.get({
-    //   method: 'get',
-    //   url: `http://localhost:3000/words/search}`
-    //   params: {searchTxt: searchTxt}
-    // }).then((response) => {
-    //   console.log(response.data)
-    //   //this.setState({ glossary: [response.data] })
-    // }).catch(() => {
-    //   console.log('failed get search request')
-    // })
   }
 
   render() {
     return (
       <div>
         <Search liftSearch={this.liftSearch} />
-        <Add />
-        <Glossary glossary={this.state.glossary} />
+        <Add loadWords={this.loadWords}/>
+        <Glossary glossary={this.state.glossary} loadWords={this.loadWords}/>
       </div>
     )
   }

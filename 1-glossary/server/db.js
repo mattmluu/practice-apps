@@ -41,26 +41,17 @@ const deleteWord = (conditions, cb) => {
 }
 
 const getSearched = (searchTxt, cb) => {
-  // console.log(searched)
-  // Word.find({name: searched}).exec();
-  // console.log(Word.find({name: searched}).exec())
-  Word.find({name: searchTxt}, (err, words) => {
+  Word.find({ name: /searchTxt/i }, (err, searched) => {
     if (err) {
       cb(err)
     } else {
-      cb(null, words)
+      cb(null, searched)
     }
-  })
+  });
 }
-//getSearched(console.log, 'absolute')
 
-//i: callback
-//o: pass in an array of word objects into a callback
 const getWords = function(cb) {
   Word.find((err, words) => {
-    //words to be set to array of objects from database
-    //if err pass error obj onto the callback
-    //pass the words onto the callback
     if (err) {
       cb(err)
     } else {
@@ -68,25 +59,18 @@ const getWords = function(cb) {
     }
   })
 }
-// getWords(console.log)
 
-// create a save function to add stuff to DB
 const save = function(term) {
   const termToSave = new Word({name: term.name, definition: term.definition})
   termToSave.save();
 }
 
-//export the save function
 module.exports.deleteWord = deleteWord;
 module.exports.edit = edit;
 module.exports.getSearched = getSearched;
 module.exports.getWords = getWords;
 module.exports.save = save;
 module.exports.Word = Word;
-
-
-
-
 
 
 // main().catch(err => console.log(err))
