@@ -19,6 +19,27 @@ mongoose.connect('mongodb://localhost:27017/glossary', (err) => {
   }
 })
 
+const edit = (conditions, update, cb) => {
+  Word.findOneAndUpdate(conditions, update, (err, edits) => {
+    if (err) {
+      cb(err)
+    } else {
+      cb(edits)
+    }
+  })
+}
+
+const deleteWord = (conditions, cb) => {
+  console.log(conditions)
+  Word.findOneAndDelete(conditions, (err, deleted) => {
+    if (err) {
+      cb(err)
+    } else {
+      cb(null, deleted)
+    }
+  })
+}
+
 const getSearched = (searchTxt, cb) => {
   // console.log(searched)
   // Word.find({name: searched}).exec();
@@ -56,9 +77,13 @@ const save = function(term) {
 }
 
 //export the save function
-module.exports.getSearched = getSearched
+module.exports.deleteWord = deleteWord;
+module.exports.edit = edit;
+module.exports.getSearched = getSearched;
 module.exports.getWords = getWords;
 module.exports.save = save;
+module.exports.Word = Word;
+
 
 
 

@@ -36,8 +36,11 @@ class Word extends React.Component {
       definition: this.state.definition,
       nameChangeTo: this.state.nameChangeTo,
       definitionChangeTo: this.state.definitionChangeTo
+    }).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
     })
-
   }
 
   handleEditWord(e) {
@@ -56,8 +59,11 @@ class Word extends React.Component {
 
   handleDelete(event) {
     event.preventDefault()
-    axios.post('words/delete', {
-      word: event.target.value
+    axios.post('/words/delete', {
+      name: event.target.value
+    }) .then((response) => {
+      console.log(response.data)
+    }) .catch((error) => {console.log(error)
     })
   }
 
@@ -76,7 +82,7 @@ class Word extends React.Component {
           :
           <div>{this.props.name + ' -- ' + this.props.definition}</div>
           }
-          <button onClick={this.handleDelete} value={this.state.name}>Delete</button>
+          <button onClick={this.handleDelete} value={this.state.name} >Delete</button>
           <button onClick={this.handleEditClick}>Edit</button>
         </li>
 
