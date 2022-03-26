@@ -11,7 +11,6 @@ const wordSchema = new mongoose.Schema({
 })
 const Word = mongoose.model('Word', wordSchema);
 
-console.log('hi')
 mongoose.connect('mongodb://localhost:27017/glossary', (err) => {
   if (err) {
     console.log(err);
@@ -19,6 +18,20 @@ mongoose.connect('mongodb://localhost:27017/glossary', (err) => {
     console.log('connected')
   }
 })
+
+const getSearched = (searchTxt, cb) => {
+  // console.log(searched)
+  // Word.find({name: searched}).exec();
+  // console.log(Word.find({name: searched}).exec())
+  Word.find({name: searchTxt}, (err, words) => {
+    if (err) {
+      cb(err)
+    } else {
+      cb(null, words)
+    }
+  })
+}
+//getSearched(console.log, 'absolute')
 
 //i: callback
 //o: pass in an array of word objects into a callback
@@ -32,10 +45,9 @@ const getWords = function(cb) {
     } else {
       cb(null, words)
     }
-
   })
 }
-getWords(console.log)
+// getWords(console.log)
 
 // create a save function to add stuff to DB
 const save = function(term) {
@@ -44,7 +56,8 @@ const save = function(term) {
 }
 
 //export the save function
-//module.exports.seed = seed;
+module.exports.getSearched = getSearched
+module.exports.getWords = getWords;
 module.exports.save = save;
 
 

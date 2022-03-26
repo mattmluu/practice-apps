@@ -1,14 +1,13 @@
 import React from 'react'
 import Word from './Word.jsx'
 
-var Glossary = () => (
-  <div>
+var Glossary = ({glossary}) => (
+  <ul>
     <div>GLOSSARY</div>
-    <Word />
-    <Word />
-    <Word />
-    <Word />
-  </div>
+    {glossary.map((word) =>
+    <Word name={word.name} definition={word.definition} key={word._id}/>
+    )}
+  </ul>
 )
 
 export default Glossary
