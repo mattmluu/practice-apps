@@ -17,6 +17,7 @@ class App extends React.Component {
 
   loadWords() {
     axios('http://localhost:3000/words/all').then((response) => {
+      console.log(response.data)
       this.setState({glossary: response.data});
     })
   }

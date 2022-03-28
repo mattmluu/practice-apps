@@ -108,7 +108,7 @@ export default Word
 
 
 
-// render() {
+// render() { 
 //   if (this.state.editing === true) {
 //     return (
 //     <div>
